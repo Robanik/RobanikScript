@@ -534,18 +534,400 @@
                 statSupport: "Техническая поддержка",
                 
                 // О нас
-                aboutTeam: "О нашей команде",
-                aboutMission: "🎯 Наша миссия",
-                aboutMissionDesc: "Мы стремимся предоставить самые качественные инструменты для создания скриптов и генерации ключей, делая сложные задачи простыми и доступными для каждого.",
-                aboutInnovation: "💡 Инновации",
-                aboutInnovationDesc: "Постоянно развиваем наши технологии, внедряя последние достижения в области искусственного интеллекта и криптографии.",
-                aboutLearnMore: "Узнать больше",
-                aboutJoinTeam: "Присоединиться к команде",
+                aboutTeam: "About Our Team",
+                aboutMission: "🎯 Our Mission",
+                aboutMissionDesc: "We strive to provide the highest quality tools for script creation and key generation, making complex tasks simple and accessible to everyone.",
+                aboutInnovation: "💡 Innovation",
+                aboutInnovationDesc: "We constantly develop our technologies, implementing the latest achievements in artificial intelligence and cryptography.",
+                aboutLearnMore: "Learn More",
+                aboutJoinTeam: "Join the Team",
                 
                 // Скрипты
-                ourScripts: "Наши скрипты",
-                scriptsAutomation: "🔧 Автоматизация",
-                scriptsAutomationDesc: "Скрипты для автоматизации повседневных задач и процессов",
-                scriptsSecurity: "🛡️ Безопасность",
-                scriptsSecurityDesc: "Инструменты для обеспечения безопасности и защиты данных",
+                ourScripts: "Our Scripts",
+                scriptsAutomation: "🔧 Automation",
+                scriptsAutomationDesc: "Scripts for automating everyday tasks and processes",
+                scriptsSecurity: "🛡️ Security",
+                scriptsSecurityDesc: "Tools for ensuring security and data protection",
+                scriptsAnalytics: "📊 Analytics",
+                scriptsAnalyticsDesc: "Scripts for data analysis and report generation",
+                scriptsGaming: "🎮 Gaming Utilities",
+                scriptsGamingDesc: "Specialized tools for gaming applications",
+                scriptsDownload: "Download Scripts",
+                scriptsCustom: "Order Custom Script",
                 
+                // Delta X Key
+                deltaTitle: "Delta X Key Generator",
+                deltaAI: "🤖 AI Key Generator",
+                deltaStart: "Start Generation",
+                deltaClear: "Clear Chat",
+                
+                // Инструменты
+                toolsAdditional: "Additional Tools",
+                toolsPassword: "🔑 Password Generator",
+                toolsPasswordDesc: "Creating secure passwords with customizable parameters",
+                toolsEncryption: "🔐 Encryption",
+                toolsEncryptionDesc: "Tools for data encryption and decryption",
+                toolsEditor: "📝 Code Editor",
+                toolsEditorDesc: "Built-in editor with syntax highlighting",
+                toolsValidator: "🔍 Validator",
+                toolsValidatorDesc: "Verification of generated key correctness",
+                
+                // Контакты
+                contactUs: "Contact Us",
+                contactEmail: "📧 Email",
+                contactTelegram: "💬 Telegram",
+                contactDiscord: "🌐 Discord",
+                contactTime: "⏰ Working Hours",
+                contactTimeDesc: "24/7 online support",
+                
+                footerRights: "All rights reserved.",
+                footerCreated: "Created with ❤️ by Robanik team"
+            }
+        };
+
+        function changeLanguage(lang) {
+            currentSiteLanguage = lang;
+            
+            // Обновить активную кнопку языка
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Обновить все переводимые элементы
+            const t = translations[lang];
+            
+            // Заголовок и навигация
+            document.getElementById('headerSubtitle').textContent = t.headerSubtitle;
+            document.getElementById('tab-home').textContent = t.tabHome;
+            document.getElementById('tab-about').textContent = t.tabAbout;
+            document.getElementById('tab-scripts').textContent = t.tabScripts;
+            document.getElementById('tab-deltakey').textContent = 'Delta X Key';
+            document.getElementById('tab-tools').textContent = t.tabTools;
+            document.getElementById('tab-contact').textContent = t.tabContact;
+            
+            // Обновить содержимое всех вкладок
+            updateTabContent();
+            
+            // Футер
+            document.getElementById('footerRights').textContent = t.footerRights;
+            document.getElementById('footerCreated').textContent = t.footerCreated;
+        }
+
+        function updateTabContent() {
+            const t = translations[currentSiteLanguage];
+            
+            // Обновление содержимого всех вкладок
+            document.getElementById('home').innerHTML = `
+                <h2 class="section-title">${t.homeWelcome}</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>${t.homeFastGen}</h3>
+                        <p>${t.homeFastGenDesc}</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>${t.homeSecurity}</h3>
+                        <p>${t.homeSecurityDesc}</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>${t.homePerformance}</h3>
+                        <p>${t.homePerformanceDesc}</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>${t.homeAccuracy}</h3>
+                        <p>${t.homeAccuracyDesc}</p>
+                    </div>
+                </div>
+
+                <div class="stats">
+                    <div class="stat-card">
+                        <span class="stat-number">10,000+</span>
+                        <div class="stat-label">${t.statGenerated}</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">5,000+</span>
+                        <div class="stat-label">${t.statActive}</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">99.9%</span>
+                        <div class="stat-label">${t.statUptime}</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">24/7</span>
+                        <div class="stat-label">${t.statSupport}</div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('about').innerHTML = `
+                <h2 class="section-title">${t.aboutTeam}</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>${t.aboutMission}</h3>
+                        <p>${t.aboutMissionDesc}</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>${t.aboutInnovation}</h3>
+                        <p>${t.aboutInnovationDesc}</p>
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button class="action-btn">${t.aboutLearnMore}</button>
+                    <button class="action-btn primary">${t.aboutJoinTeam}</button>
+                </div>
+            `;
+            
+            document.getElementById('scripts').innerHTML = `
+                <h2 class="section-title">${t.ourScripts}</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>${t.scriptsAutomation}</h3>
+                        <p>${t.scriptsAutomationDesc}</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>${t.scriptsSecurity}</h3>
+                        <p>${t.scriptsSecurityDesc}</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>${t.scriptsAnalytics}</h3>
+                        <p>${t.scriptsAnalyticsDesc}</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>${t.scriptsGaming}</h3>
+                        <p>${t.scriptsGamingDesc}</p>
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button class="action-btn">${t.scriptsDownload}</button>
+                    <button class="action-btn primary">${t.scriptsCustom}</button>
+                </div>
+            `;
+            
+            document.getElementById('deltakey').innerHTML = `
+                <h2 class="section-title">${t.deltaTitle}</h2>
+                <div class="key-generator">
+                    <div class="ai-interface">
+                        <h3 style="margin-bottom: 15px;">${t.deltaAI}</h3>
+                        <div class="chat-area" id="chatArea">
+                            <div style="color: #00ff00; font-weight: bold;">[r6534218956]</div>
+                            <div style="margin: 10px 0;">ROBANIK GPTr 1.5 flash активирован...</div>
+                            <div style="margin: 10px 0;">Система генерации ключей готова к работе.</div>
+                            <div style="margin: 10px 0; color: #ffff00;">Нажмите "${t.deltaStart}" для запуска процесса.</div>
+                        </div>
+                        <div class="input-area">
+                            <input type="text" class="chat-input" id="userInput" placeholder="${currentSiteLanguage === 'ru' ? 'Введите команду...' : 'Enter command...'}" disabled>
+                            <button class="send-btn" onclick="sendMessage()">${currentSiteLanguage === 'ru' ? 'Отправить' : 'Send'}</button>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="action-btn primary" onclick="startKeyGeneration()">${t.deltaStart}</button>
+                        <button class="action-btn" onclick="clearChat()">${t.deltaClear}</button>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('tools').innerHTML = `
+                <h2 class="section-title">${t.toolsAdditional}</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>${t.toolsPassword}</h3>
+                        <p>${t.toolsPasswordDesc}</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>${t.toolsEncryption}</h3>
+                        <p>${t.toolsEncryptionDesc}</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>${t.toolsEditor}</h3>
+                        <p>${t.toolsEditorDesc}</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>${t.toolsValidator}</h3>
+                        <p>${t.toolsValidatorDesc}</p>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('contact').innerHTML = `
+                <h2 class="section-title">${t.contactUs}</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>${t.contactEmail}</h3>
+                        <p>support@robanikscripts.com</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>${t.contactTelegram}</h3>
+                        <p>@RobanikScripts</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>${t.contactDiscord}</h3>
+                        <p>Robanik Scripts Server</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>${t.contactTime}</h3>
+                        <p>${t.contactTimeDesc}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function openTab(tabName) {
+            // Скрыть все вкладки
+            const tabs = document.getElementsByClassName('tab-content');
+            for (let i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove('active');
+            }
+
+            // Убрать активный класс у всех кнопок
+            const tabBtns = document.getElementsByClassName('tab-btn');
+            for (let i = 0; i < tabBtns.length; i++) {
+                tabBtns[i].classList.remove('active');
+            }
+
+            // Показать выбранную вкладку
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function startKeyGeneration() {
+            currentStep = 1;
+            const chatArea = document.getElementById('chatArea');
+            const userInput = document.getElementById('userInput');
+            
+            chatArea.innerHTML = `
+                <div style="color: #00ff00; font-weight: bold;">[r6534218956]</div>
+                <div style="margin: 10px 0;">--BY ROBANIK-- ROBANIK GPTr 1.5 flash</div>
+                <div style="margin: 10px 0; color: #ffff00;">КАКОЙ ЯЗЫК?</div>
+                <div style="margin: 5px 0; color: #ffffff;">1) ENGLISH</div>
+                <div style="margin: 5px 0; color: #ffffff;">2) RUSSIAN</div>
+            `;
+            
+            userInput.disabled = false;
+            userInput.placeholder = currentSiteLanguage === 'ru' ? "Выберите язык (1 или 2)..." : "Choose language (1 or 2)...";
+            userInput.focus();
+        }
+
+        function sendMessage() {
+            const userInput = document.getElementById('userInput');
+            const chatArea = document.getElementById('chatArea');
+            const message = userInput.value.trim();
+            
+            if (!message) return;
+
+            // Добавить сообщение пользователя
+            chatArea.innerHTML += `<div style="margin: 10px 0; color: #00ccff;">> ${message}</div>`;
+            
+            // Обработать ввод в зависимости от шага
+            if (currentStep === 1) {
+                // Выбор языка
+                if (message === '1' || message.toLowerCase().includes('english')) {
+                    selectedLanguage = 'english';
+                    chatArea.innerHTML += `
+                        <div style="margin: 10px 0; color: #ffff00;">WHAT DO YOU NEED?</div>
+                        <div style="margin: 5px 0; color: #ffffff;">1) DELTA X KEY</div>
+                        <div style="margin: 5px 0; color: #ffffff;">2) ROBIK00 (NOT WORKING) (COMING LATER)</div>
+                    `;
+                    currentStep = 2;
+                    userInput.placeholder = "Choose option (1 or 2)...";
+                } else if (message === '2' || message.toLowerCase().includes('russian')) {
+                    selectedLanguage = 'russian';
+                    chatArea.innerHTML += `
+                        <div style="margin: 10px 0; color: #ffff00;">ЧТО ВАМ НУЖНО?</div>
+                        <div style="margin: 5px 0; color: #ffffff;">1) ДЕЛЬТА ИКС КЛЮЧ</div>
+                        <div style="margin: 5px 0; color: #ffffff;">2) РОБИК00 (НЕ РАБОТАЕТ) (ЭТО ПОТОМ)</div>
+                    `;
+                    currentStep = 2;
+                    userInput.placeholder = "Выберите опцию (1 или 2)...";
+                }
+            } else if (currentStep === 2) {
+                // Выбор сервиса
+                if (message === '1') {
+                    if (selectedLanguage === 'english') {
+                        chatArea.innerHTML += `<div style="margin: 10px 0; color: #ffff00;">ENTER YOUR NICKNAME:</div>`;
+                        userInput.placeholder = "Enter your nickname...";
+                    } else {
+                        chatArea.innerHTML += `<div style="margin: 10px 0; color: #ffff00;">ВВЕДИТЕ СВОЙ НИК:</div>`;
+                        userInput.placeholder = "Введите ваш ник...";
+                    }
+                    currentStep = 3;
+                } else if (message === '2') {
+                    if (selectedLanguage === 'english') {
+                        chatArea.innerHTML += `<div style="margin: 10px 0; color: #ff0000;">ROBIK00 IS NOT AVAILABLE YET. COMING SOON!</div>`;
+                    } else {
+                        chatArea.innerHTML += `<div style="margin: 10px 0; color: #ff0000;">РОБИК00 ПОКА НЕ ДОСТУПЕН. СКОРО БУДЕТ!</div>`;
+                    }
+                    currentStep = 1;
+                }
+            } else if (currentStep === 3) {
+                // Ввод никнейма
+                userName = message;
+                if (selectedLanguage === 'english') {
+                    chatArea.innerHTML += `<div style="margin: 10px 0; color: #00ff00;">GOOD! SOON I WILL GIVE YOU THE KEY</div>`;
+                } else {
+                    chatArea.innerHTML += `<div style="margin: 10px 0; color: #00ff00;">ХОРОШО! СКОРО Я ДАМ ВАМ КЛЮЧ</div>`;
+                }
+                
+                // Генерация ключа
+                setTimeout(() => {
+                    const generatedKey = generateDeltaXKey();
+                    if (selectedLanguage === 'english') {
+                        chatArea.innerHTML += `
+                            <div style="margin: 15px 0; color: #ffff00;">KEY:</div>
+                            <div style="margin: 10px 0; color: #00ff00; font-weight: bold; font-size: 1.1em; background: rgba(0,255,0,0.1); padding: 10px; border-radius: 5px;">${generatedKey}</div>
+                            <div style="margin: 10px 0; color: #00ff00;">[KEY GENERATED✓]</div>
+                            <div style="margin: 5px 0; color: #ffffff;">[IF IT DOESN'T WORK, RESTART OR CREATE A NEW ONE]</div>
+                        `;
+                    } else {
+                        chatArea.innerHTML += `
+                            <div style="margin: 15px 0; color: #ffff00;">КЛЮЧ:</div>
+                            <div style="margin: 10px 0; color: #00ff00; font-weight: bold; font-size: 1.1em; background: rgba(0,255,0,0.1); padding: 10px; border-radius: 5px;">${generatedKey}</div>
+                            <div style="margin: 10px 0; color: #00ff00;">[КЛЮЧ СГЕНЕРИРОВАН✓]</div>
+                            <div style="margin: 5px 0; color: #ffffff;">[ЕСЛИ НЕ РАБОТАЕТ ПЕРЕЗАЙДИ ИЛИ СОЗДАЙ НОВЫЙ]</div>
+                        `;
+                    }
+                    chatArea.scrollTop = chatArea.scrollHeight;
+                    currentStep = 0;
+                    userInput.disabled = true;
+                    userInput.placeholder = "Генерация завершена. Нажмите 'Начать генерацию' для нового ключа.";
+                }, 2000);
+            }
+
+            userInput.value = '';
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }
+
+        function generateDeltaXKey() {
+            // Генерация ключа в формате FREE_[32 символа hex]
+            const chars = '0123456789abcdef';
+            let key = 'FREE_';
+            for (let i = 0; i < 32; i++) {
+                key += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return key;
+        }
+
+        function clearChat() {
+            const chatArea = document.getElementById('chatArea');
+            const userInput = document.getElementById('userInput');
+            const t = translations[currentSiteLanguage];
+            
+            chatArea.innerHTML = `
+                <div style="color: #00ff00; font-weight: bold;">[r6534218956]</div>
+                <div style="margin: 10px 0;">ROBANIK GPTr 1.5 flash активирован...</div>
+                <div style="margin: 10px 0;">Система генерации ключей готова к работе.</div>
+                <div style="margin: 10px 0; color: #ffff00;">Нажмите "${t.deltaStart}" для запуска процесса.</div>
+            `;
+            
+            userInput.disabled = true;
+            userInput.value = '';
+            userInput.placeholder = currentSiteLanguage === 'ru' ? 'Введите команду...' : 'Enter command...';
+            currentStep = 0;
+        }
+
+        // Обработка Enter в поле ввода
+        document.getElementById('userInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>
