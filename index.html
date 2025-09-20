@@ -268,7 +268,37 @@
             padding: 20px;
         }
 
-        @media (max-width: 768px) {
+        .language-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+        }
+
+        .lang-btn {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+        }
+
+        .lang-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.05);
+        }
+
+        .lang-btn.active {
+            background: rgba(255,255,255,0.4);
+            border-color: white;
+        }
             .logo {
                 font-size: 2.5rem;
             }
@@ -286,19 +316,24 @@
     </style>
 </head>
 <body>
+    <div class="language-selector">
+        <button class="lang-btn active" onclick="changeLanguage('ru')">RU</button>
+        <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
+    </div>
+    
     <div class="container">
         <header class="header">
             <h1 class="logo">ROBANIK SCRIPTS</h1>
-            <p class="subtitle">Профессиональная генерация скриптов и ключей</p>
+            <p class="subtitle" id="headerSubtitle">Профессиональная генерация скриптов и ключей</p>
         </header>
 
         <nav class="nav-tabs">
-            <button class="tab-btn active" onclick="openTab('home')">Главная</button>
-            <button class="tab-btn" onclick="openTab('about')">О нас</button>
-            <button class="tab-btn" onclick="openTab('scripts')">Скрипты</button>
-            <button class="tab-btn" onclick="openTab('deltakey')">Delta X Key</button>
-            <button class="tab-btn" onclick="openTab('tools')">Инструменты</button>
-            <button class="tab-btn" onclick="openTab('contact')">Контакты</button>
+            <button class="tab-btn active" onclick="openTab('home')" id="tab-home">Главная</button>
+            <button class="tab-btn" onclick="openTab('about')" id="tab-about">О нас</button>
+            <button class="tab-btn" onclick="openTab('scripts')" id="tab-scripts">Скрипты</button>
+            <button class="tab-btn" onclick="openTab('deltakey')" id="tab-deltakey">Delta X Key</button>
+            <button class="tab-btn" onclick="openTab('tools')" id="tab-tools">Инструменты</button>
+            <button class="tab-btn" onclick="openTab('contact')" id="tab-contact">Контакты</button>
         </nav>
 
         <div class="content-area">
@@ -462,7 +497,7 @@
         </div>
 
         <footer class="footer">
-            <p>&copy; 2025 Robanik Scripts. Все права защищены. | Создано с ❤️ командой Robanik</p>
+            <p>&copy; 2025 Robanik Scripts. <span id="footerRights">Все права защищены.</span> | <span id="footerCreated">Создано с ❤️ командой Robanik</span></p>
         </footer>
     </div>
 
@@ -470,165 +505,47 @@
         let currentStep = 0;
         let userName = '';
         let selectedLanguage = '';
+        let currentSiteLanguage = 'ru';
 
-        function openTab(tabName) {
-            // Скрыть все вкладки
-            const tabs = document.getElementsByClassName('tab-content');
-            for (let i = 0; i < tabs.length; i++) {
-                tabs[i].classList.remove('active');
-            }
-
-            // Убрать активный класс у всех кнопок
-            const tabBtns = document.getElementsByClassName('tab-btn');
-            for (let i = 0; i < tabBtns.length; i++) {
-                tabBtns[i].classList.remove('active');
-            }
-
-            // Показать выбранную вкладку
-            document.getElementById(tabName).classList.add('active');
-            event.target.classList.add('active');
-        }
-
-        function startKeyGeneration() {
-            currentStep = 1;
-            const chatArea = document.getElementById('chatArea');
-            const userInput = document.getElementById('userInput');
-            
-            chatArea.innerHTML = `
-                <div style="color: #00ff00; font-weight: bold;">[r6534218956]</div>
-                <div style="margin: 10px 0;">--BY ROBANIK-- ROBANIK GPTr 1.5 flash</div>
-                <div style="margin: 10px 0; color: #ffff00;">КАКОЙ ЯЗЫК?</div>
-                <div style="margin: 5px 0; color: #ffffff;">1) ENGLISH</div>
-                <div style="margin: 5px 0; color: #ffffff;">2) RUSSIAN</div>
-            `;
-            
-            userInput.disabled = false;
-            userInput.placeholder = "Выберите язык (1 или 2)...";
-            userInput.focus();
-        }
-
-        function sendMessage() {
-            const userInput = document.getElementById('userInput');
-            const chatArea = document.getElementById('chatArea');
-            const message = userInput.value.trim();
-            
-            if (!message) return;
-
-            // Добавить сообщение пользователя
-            chatArea.innerHTML += `<div style="margin: 10px 0; color: #00ccff;">> ${message}</div>`;
-            
-            // Обработать ввод в зависимости от шага
-            if (currentStep === 1) {
-                // Выбор языка
-                if (message === '1' || message.toLowerCase().includes('english')) {
-                    selectedLanguage = 'english';
-                    chatArea.innerHTML += `
-                        <div style="margin: 10px 0; color: #ffff00;">WHAT DO YOU NEED?</div>
-                        <div style="margin: 5px 0; color: #ffffff;">1) DELTA X KEY</div>
-                        <div style="margin: 5px 0; color: #ffffff;">2) ROBIK00 (NOT WORKING) (COMING LATER)</div>
-                    `;
-                    currentStep = 2;
-                    userInput.placeholder = "Choose option (1 or 2)...";
-                } else if (message === '2' || message.toLowerCase().includes('russian')) {
-                    selectedLanguage = 'russian';
-                    chatArea.innerHTML += `
-                        <div style="margin: 10px 0; color: #ffff00;">ЧТО ВАМ НУЖНО?</div>
-                        <div style="margin: 5px 0; color: #ffffff;">1) ДЕЛЬТА ИКС КЛЮЧ</div>
-                        <div style="margin: 5px 0; color: #ffffff;">2) РОБИК00 (НЕ РАБОТАЕТ) (ЭТО ПОТОМ)</div>
-                    `;
-                    currentStep = 2;
-                    userInput.placeholder = "Выберите опцию (1 или 2)...";
-                }
-            } else if (currentStep === 2) {
-                // Выбор сервиса
-                if (message === '1') {
-                    if (selectedLanguage === 'english') {
-                        chatArea.innerHTML += `<div style="margin: 10px 0; color: #ffff00;">ENTER YOUR NICKNAME:</div>`;
-                        userInput.placeholder = "Enter your nickname...";
-                    } else {
-                        chatArea.innerHTML += `<div style="margin: 10px 0; color: #ffff00;">ВВЕДИТЕ СВОЙ НИК:</div>`;
-                        userInput.placeholder = "Введите ваш ник...";
-                    }
-                    currentStep = 3;
-                } else if (message === '2') {
-                    if (selectedLanguage === 'english') {
-                        chatArea.innerHTML += `<div style="margin: 10px 0; color: #ff0000;">ROBIK00 IS NOT AVAILABLE YET. COMING SOON!</div>`;
-                    } else {
-                        chatArea.innerHTML += `<div style="margin: 10px 0; color: #ff0000;">РОБИК00 ПОКА НЕ ДОСТУПЕН. СКОРО БУДЕТ!</div>`;
-                    }
-                    currentStep = 1;
-                }
-            } else if (currentStep === 3) {
-                // Ввод никнейма
-                userName = message;
-                if (selectedLanguage === 'english') {
-                    chatArea.innerHTML += `<div style="margin: 10px 0; color: #00ff00;">GOOD! SOON I WILL GIVE YOU THE KEY</div>`;
-                } else {
-                    chatArea.innerHTML += `<div style="margin: 10px 0; color: #00ff00;">ХОРОШО! СКОРО Я ДАМ ВАМ КЛЮЧ</div>`;
-                }
+        // Объект с переводами
+        const translations = {
+            ru: {
+                headerSubtitle: "Профессиональная генерация скриптов и ключей",
+                tabHome: "Главная",
+                tabAbout: "О нас",
+                tabScripts: "Скрипты",
+                tabTools: "Инструменты",
+                tabContact: "Контакты",
                 
-                // Генерация ключа
-                setTimeout(() => {
-                    const generatedKey = generateDeltaXKey();
-                    if (selectedLanguage === 'english') {
-                        chatArea.innerHTML += `
-                            <div style="margin: 15px 0; color: #ffff00;">KEY:</div>
-                            <div style="margin: 10px 0; color: #00ff00; font-weight: bold; font-size: 1.1em; background: rgba(0,255,0,0.1); padding: 10px; border-radius: 5px;">${generatedKey}</div>
-                            <div style="margin: 10px 0; color: #00ff00;">[KEY GENERATED✓]</div>
-                            <div style="margin: 5px 0; color: #ffffff;">[IF IT DOESN'T WORK, RESTART OR CREATE A NEW ONE]</div>
-                        `;
-                    } else {
-                        chatArea.innerHTML += `
-                            <div style="margin: 15px 0; color: #ffff00;">КЛЮЧ:</div>
-                            <div style="margin: 10px 0; color: #00ff00; font-weight: bold; font-size: 1.1em; background: rgba(0,255,0,0.1); padding: 10px; border-radius: 5px;">${generatedKey}</div>
-                            <div style="margin: 10px 0; color: #00ff00;">[КЛЮЧ СГЕНЕРИРОВАН✓]</div>
-                            <div style="margin: 5px 0; color: #ffffff;">[ЕСЛИ НЕ РАБОТАЕТ ПЕРЕЗАЙДИ ИЛИ СОЗДАЙ НОВЫЙ]</div>
-                        `;
-                    }
-                    chatArea.scrollTop = chatArea.scrollHeight;
-                    currentStep = 0;
-                    userInput.disabled = true;
-                    userInput.placeholder = "Генерация завершена. Нажмите 'Начать генерацию' для нового ключа.";
-                }, 2000);
-            }
-
-            userInput.value = '';
-            chatArea.scrollTop = chatArea.scrollHeight;
-        }
-
-        function generateDeltaXKey() {
-            // Генерация ключа в формате FREE_[32 символа hex]
-            const chars = '0123456789abcdef';
-            let key = 'FREE_';
-            for (let i = 0; i < 32; i++) {
-                key += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            return key;
-        }
-
-        function clearChat() {
-            const chatArea = document.getElementById('chatArea');
-            const userInput = document.getElementById('userInput');
-            
-            chatArea.innerHTML = `
-                <div style="color: #00ff00; font-weight: bold;">[r6534218956]</div>
-                <div style="margin: 10px 0;">ROBANIK GPTr 1.5 flash активирован...</div>
-                <div style="margin: 10px 0;">Система генерации ключей готова к работе.</div>
-                <div style="margin: 10px 0; color: #ffff00;">Нажмите "Начать генерацию" для запуска процесса.</div>
-            `;
-            
-            userInput.disabled = true;
-            userInput.value = '';
-            userInput.placeholder = "Введите команду...";
-            currentStep = 0;
-        }
-
-        // Обработка Enter в поле ввода
-        document.getElementById('userInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
-        });
-    </script>
-</body>
-</html>
+                // Главная страница
+                homeWelcome: "Добро пожаловать в Robanik Scripts",
+                homeFastGen: "🚀 Быстрая генерация",
+                homeFastGenDesc: "Мгновенное создание скриптов и ключей с использованием передовых алгоритмов",
+                homeSecurity: "🔐 Безопасность",
+                homeSecurityDesc: "Все генерируемые ключи проходят проверку на уникальность и безопасность",
+                homePerformance: "⚡ Высокая производительность",
+                homePerformanceDesc: "Оптимизированные алгоритмы для максимальной скорости работы",
+                homeAccuracy: "🎯 Точность",
+                homeAccuracyDesc: "Каждый скрипт создается с учетом ваших специфических требований",
+                
+                statGenerated: "Генерированных скриптов",
+                statActive: "Активных ключей",
+                statUptime: "Время безотказной работы",
+                statSupport: "Техническая поддержка",
+                
+                // О нас
+                aboutTeam: "О нашей команде",
+                aboutMission: "🎯 Наша миссия",
+                aboutMissionDesc: "Мы стремимся предоставить самые качественные инструменты для создания скриптов и генерации ключей, делая сложные задачи простыми и доступными для каждого.",
+                aboutInnovation: "💡 Инновации",
+                aboutInnovationDesc: "Постоянно развиваем наши технологии, внедряя последние достижения в области искусственного интеллекта и криптографии.",
+                aboutLearnMore: "Узнать больше",
+                aboutJoinTeam: "Присоединиться к команде",
+                
+                // Скрипты
+                ourScripts: "Наши скрипты",
+                scriptsAutomation: "🔧 Автоматизация",
+                scriptsAutomationDesc: "Скрипты для автоматизации повседневных задач и процессов",
+                scriptsSecurity: "🛡️ Безопасность",
+                scriptsSecurityDesc: "Инструменты для обеспечения безопасности и защиты данных",
+                
